@@ -6,6 +6,12 @@
 
     <style>
 
+        * {
+
+            margin: 0 auto;
+            padding: 0;
+        }
+
         .bar {
             fill: lightblue;
             fill-opacity: 0.9;
@@ -20,14 +26,57 @@
             font-weight: 400;
         }
 
+        .ipsum, .table {
+
+            font-family: "Andale Mono";
+        }
+
         .ipsum {
             font-size: 11px;
-            font-family: "Andale Mono";
             background: #eeeeee;
             color: dimgray;
             padding: 2%;
             border-radius: 4px;
             font-style: italic;
+        }
+
+        .table {
+            width: 80%;
+            font-size: 10px;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        .table th {
+
+            font-size: 13px;
+            font-weight: bold;
+            padding: 4px;
+            text-align: center;
+            background: lightblue;
+            text-transform: uppercase;
+        }
+
+        .table th:not(:nth-child(2)) {
+
+            text-align: left;
+            padding: 0px 32px
+
+        }
+
+        .table td {
+            text-transform: uppercase;
+            border-bottom: 3px solid #eee;
+
+        }
+
+        .table td {
+            text-align: left;
+            padding: 2px 32px
+        }
+
+        .table td:nth-child(2){
+            text-align: center;
         }
     </style>
 </head>
@@ -40,6 +89,8 @@
 
 <hr/>
 
+<div id="data"></div>
+
 <div id="container"></div>
 
 <script type="application/javascript" src="node_modules/d3/build/d3.min.js"></script>
@@ -49,22 +100,103 @@
 
     (function() {
 
-        var data = [
 
-            {region: 'north', y: 140},
+        var header = [
 
-            {region: 'northwest', y: 120},
+            { header: 'Region'} ,
 
-            {region: 'northeast', y: 40},
 
-            {region: 'south', y : 200},
-
-            {region: 'southwest', y: 130},
-
-            {region: 'southeast', y: 100}
-
+            { header: 'kwH'}
 
         ];
+
+        var data = [
+
+
+            {region: 'north', y: 140, kwh: 140},
+
+            {region: 'northwest', y: 120, kwh: 120},
+
+            {region: 'northeast', y: 40, kwh: 40},
+
+            {region: 'south', y : 200, kwh: 200},
+
+            {region: 'southwest', y: 130, kwh: 130},
+
+            {region: 'southeast', y: 100, kwh: 100},
+        ];
+
+
+        /**
+         * D3 how to create an HTML table
+         *
+         */
+
+        // capture a container
+        var tableContainer = document.querySelector('#data');
+
+        // append table
+        var table = d3.select(tableContainer)
+
+            .append('table')
+
+            .attr('class', 'table');
+
+        // append table header
+        // out of header array names
+        table
+
+            .append('thead') // append <thead> once
+
+            .append('tr') // append <tr> once
+
+            .selectAll('th') // .selectAll() selection object
+
+            .data(header) // header of array names
+
+            .enter() // think enter() as for each item in array
+
+            .append('th') // append <th>
+
+            .text(function(d){ // <th> content should output `item`.`header`
+
+                return d.header;
+            });
+
+        // output row data
+        var row = table
+
+            .append('tbody') // append tbody once
+
+            .selectAll('tr') // .selectAll() selection object
+
+            .data(data) // bind data
+
+            .enter() // process each item in data array
+
+            .append('tr'); // append table row
+
+
+        row.append('td') // for given table row append <td>
+
+            .text(function(d){ // with content (region value)
+
+                return d.region;
+            });
+
+
+        row.append('td') // add another column <td> for kwh
+
+            .text(function(d){ // with content (kwh value)
+
+                return d.kwh;
+            });
+
+
+
+
+
+
 
         var
 
