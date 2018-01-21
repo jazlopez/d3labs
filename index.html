@@ -78,6 +78,15 @@
         .table td:nth-child(2){
             text-align: center;
         }
+
+        .sort-status {
+            position: absolute;
+            top: 25px;
+            left: 10%;
+            font-family: monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
@@ -164,6 +173,7 @@
 
             return {
 
+
                 header: function (names) {
 
                     this.header = names;
@@ -178,6 +188,13 @@
                     return this;
                 },
 
+                sort: function(status) {
+
+                    this.isSort = status;
+
+                    return this;
+                },
+
                 table: function () {
 
                     /**
@@ -188,6 +205,8 @@
                     var data = this.data;
 
                     var header = this.header;
+
+                    var isSort = this.isSort;
 
                     // capture a container
                     var tableContainer = document.querySelector('#data');
@@ -266,6 +285,31 @@
                             }
                         );
 
+                    d3.select(tableContainer)
+
+                        .select('#sort-status')
+
+                        .remove();
+
+                    d3.select(tableContainer)
+
+                        .append('div')
+
+                        .attr('id', 'sort-status')
+
+                        .attr('class', 'sort-status')
+
+                        .text(function(){
+
+                            return isSort ?
+
+                                'Sort Enabled' :
+
+                                'Sort Disabled';
+
+                        });
+
+
                     return this;
                     }
                 };
@@ -286,7 +330,8 @@
                 return a.kwh > b.kwh ? 1 : -1;
             });
 
-            d3Table1.table();
+
+            d3Table1.sort(1).table();
 
         }, 2000);
 
