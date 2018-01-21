@@ -103,10 +103,10 @@
 
         var header = [
 
-            { header: 'Region'} ,
+            {header: 'Region'},
 
 
-            { header: 'kwH'}
+            {header: 'kwH'}
 
         ];
 
@@ -119,7 +119,23 @@
 
             {region: 'northeast', y: 40, kwh: 40},
 
-            {region: 'south', y : 200, kwh: 200},
+            {region: 'south', y: 200, kwh: 200},
+
+            {region: 'southwest', y: 130, kwh: 130},
+
+            {region: 'southeast', y: 100, kwh: 100},
+        ];
+
+        var datasetA = [
+
+
+            {region: 'north', y: 140, kwh: 140},
+
+            {region: 'northwest', y: 120, kwh: 120},
+
+            {region: 'northeast', y: 40, kwh: 40},
+
+            {region: 'south', y: 200, kwh: 200},
 
             {region: 'southwest', y: 130, kwh: 130},
 
@@ -127,99 +143,152 @@
         ];
 
 
-
-        var d3TableFactory = function(data){
-
-            /**
-             * D3 how to create an HTML table
-             *
-             */
-
-                // capture a container
-            var tableContainer = document.querySelector('#data');
-
-            // append table
-            var table = d3.select(tableContainer)
-
-                .append('table')
-
-                .attr('class', 'table');
-
-            // append table header
-            // out of header array names
-            table
-
-                .append('thead') // append <thead> once
-
-                .append('tr') // append <tr> once
-
-                .selectAll('th') // .selectAll() selection object
-
-                .data(header) // header of array names
-
-                .enter() // think enter() as for each item in array
-
-                .append('th') // append <th>
-
-                .text(function(d){ // <th> content should output `item`.`header`
-
-                    return d.header;
-                });
-
-            // output row data
-            var row = table
-
-                .append('tbody') // append tbody once
-
-                .selectAll('tr') // .selectAll() selection object
-
-                .data(data) // bind data
-
-                .enter() // process each item in data array
-
-                .append('tr'); // append table row
+        var datasetB = [
 
 
-            console.log(row);
+            {region: 'north', y: 140, kwh: 140},
+
+            {region: 'northwest', y: 120, kwh: 120},
+
+            {region: 'northeast', y: 40, kwh: 40},
+
+            {region: 'south', y: 200, kwh: 200},
+
+            {region: 'southwest', y: 130, kwh: 130},
+
+            {region: 'southeast', y: 100, kwh: 100},
+        ];
 
 
-            row.append('td') // for given table row append <td>
-
-                .text(function(d){ // with content (region value)
-
-                    return d.region;
-                });
-
-
-            row.append('td') // add another column <td> for kwh
-
-                .text(function(d){ // with content (kwh value)
-
-                    return d.kwh;
-                })
-                .style('color', function (d) { // change font color conditionally kwh > 100
-
-                    return d.kwh > 100 ?
-                        'red' : 'inherit';
-                })
-                .style('background-color', function (d) { // change bg color upon condition kwh > 100
-
-                        return d.kwh > 100 ?
-                            'lightyellow' : 'inherit';
-                    }
-                );
+        var d3TableFactory = function () {
 
             return {
 
-                table: table,
+                header: function (names) {
 
-                data: data
-            };
+                    this.header = names;
+
+                    return this;
+                },
+
+                rows: function (rows) {
+
+                    this.data = rows;
+
+                    return this;
+                },
+
+                table: function () {
+
+                    /**
+                     * D3 how to create an HTML table
+                     *
+                     */
+
+                    var data = this.data;
+
+                    var header = this.header;
+
+                    // capture a container
+                    var tableContainer = document.querySelector('#data');
+
+                    // clean up before start
+                    d3.select(tableContainer).selectAll('table').remove();
+
+                    // append table
+                    var table = d3.select(tableContainer)
+
+                        .append('table')
+
+                        .attr('class', 'table');
+
+                    // append table header
+                    // out of header array names
+                    table
+
+                        .append('thead') // append <thead> once
+
+                        .append('tr') // append <tr> once
+
+                        .selectAll('th') // .selectAll() selection object
+
+                        .data(header) // header of array names
+
+                        .enter() // think enter() as for each item in array
+
+                        .append('th') // append <th>
+
+                        .text(function (d) { // <th> content should output `item`.`header`
+
+                            return d.header;
+                        });
+
+                    // output row data
+                    var row = table
+
+                        .append('tbody') // append tbody once
+
+                        .selectAll('tr') // .selectAll() selection object
+
+                        .data(data) // bind data
+
+                        .enter() // process each item in data array
+
+                        .append('tr'); // append table row
+
+
+                    console.log(row);
+
+
+                    row.append('td') // for given table row append <td>
+
+                        .text(function (d) { // with content (region value)
+
+                            return d.region;
+                        });
+
+
+                    row.append('td') // add another column <td> for kwh
+
+                        .text(function (d) { // with content (kwh value)
+
+                            return d.kwh;
+                        })
+                        .style('color', function (d) { // change font color conditionally kwh > 100
+
+                            return d.kwh > 100 ?
+                                'red' : 'inherit';
+                        })
+                        .style('background-color', function (d) { // change bg color upon condition kwh > 100
+
+                                return d.kwh > 100 ?
+                                    'lightyellow' : 'inherit';
+                            }
+                        );
+
+                    return this;
+                    }
+                };
         };
 
-        var d3Table1 = d3TableFactory(data);
+        var d3Table1 = d3TableFactory()
 
-        var d3Table2 = d3TableFactory(data);
+            .header(header)
+
+            .rows(datasetA)
+
+            .table();
+
+        setTimeout(function(){
+
+            datasetA.sort(function(a,b){
+
+                return a.kwh > b.kwh ? 1 : -1;
+            });
+
+            d3Table1.table();
+
+        }, 2000);
 
         var
 
