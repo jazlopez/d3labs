@@ -127,87 +127,99 @@
         ];
 
 
-        /**
-         * D3 how to create an HTML table
-         *
-         */
 
-        // capture a container
-        var tableContainer = document.querySelector('#data');
+        var d3TableFactory = function(data){
 
-        // append table
-        var table = d3.select(tableContainer)
+            /**
+             * D3 how to create an HTML table
+             *
+             */
 
-            .append('table')
+                // capture a container
+            var tableContainer = document.querySelector('#data');
 
-            .attr('class', 'table');
+            // append table
+            var table = d3.select(tableContainer)
 
-        // append table header
-        // out of header array names
-        table
+                .append('table')
 
-            .append('thead') // append <thead> once
+                .attr('class', 'table');
 
-            .append('tr') // append <tr> once
+            // append table header
+            // out of header array names
+            table
 
-            .selectAll('th') // .selectAll() selection object
+                .append('thead') // append <thead> once
 
-            .data(header) // header of array names
+                .append('tr') // append <tr> once
 
-            .enter() // think enter() as for each item in array
+                .selectAll('th') // .selectAll() selection object
 
-            .append('th') // append <th>
+                .data(header) // header of array names
 
-            .text(function(d){ // <th> content should output `item`.`header`
+                .enter() // think enter() as for each item in array
 
-                return d.header;
-            });
+                .append('th') // append <th>
 
-        // output row data
-        var row = table
+                .text(function(d){ // <th> content should output `item`.`header`
 
-            .append('tbody') // append tbody once
+                    return d.header;
+                });
 
-            .selectAll('tr') // .selectAll() selection object
+            // output row data
+            var row = table
 
-            .data(data) // bind data
+                .append('tbody') // append tbody once
 
-            .enter() // process each item in data array
+                .selectAll('tr') // .selectAll() selection object
 
-            .append('tr'); // append table row
+                .data(data) // bind data
 
+                .enter() // process each item in data array
 
-        row.append('td') // for given table row append <td>
-
-            .text(function(d){ // with content (region value)
-
-                return d.region;
-            });
+                .append('tr'); // append table row
 
 
-        row.append('td') // add another column <td> for kwh
+            console.log(row);
 
-            .text(function(d){ // with content (kwh value)
 
-                return d.kwh;
-            })
-            .style('color', function (d) { // change font color conditionally kwh > 100
+            row.append('td') // for given table row append <td>
 
-                return d.kwh > 100 ?
-                    'red' : 'inherit';
-            })
-            .style('background-color', function (d) { // change bg color upon condition kwh > 100
+                .text(function(d){ // with content (region value)
+
+                    return d.region;
+                });
+
+
+            row.append('td') // add another column <td> for kwh
+
+                .text(function(d){ // with content (kwh value)
+
+                    return d.kwh;
+                })
+                .style('color', function (d) { // change font color conditionally kwh > 100
 
                     return d.kwh > 100 ?
-                        'lightyellow' : 'inherit';
-                }
-            )
+                        'red' : 'inherit';
+                })
+                .style('background-color', function (d) { // change bg color upon condition kwh > 100
 
+                        return d.kwh > 100 ?
+                            'lightyellow' : 'inherit';
+                    }
+                );
 
+            return {
 
+                table: table,
 
+                data: data
+            };
+        };
 
+        var d3Table1 = d3TableFactory(data);
 
+        var d3Table2 = d3TableFactory(data);
 
         var
 
