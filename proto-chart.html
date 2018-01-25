@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Lab</title>
+
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .datum {
+            font-family: "Andale Mono";
+            font-size: 11px;
+            margin: 10px auto;
+            background: aliceblue;
+            text-transform: uppercase;
+            width: 20%;
+            padding: 2%;
+            border:1px solid #add8e6;
+            color: cornflowerblue;
+        }
+
+        footer{
+            position: absolute;
+            bottom:0px;
+            width: 100%;
+        }
+        .ipsum {
+            background: #eeeeee;
+            color: dimgray;
+            padding: 2%;
+            border-radius: 4px;
+            font-style: italic;
+        }{}
+
+        .sub {
+
+            font-style: italic;
+        }
+
+        .intro {
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<cite>
+    <sub>jlopez.mx,Software Developer , D3 Labs</sub>
+</cite>
+
+<hr/>
+
+<div class="intro">
+    <code>
+        <h2>D3 Proto charts</h2>
+    </code>
+</div>
+
+<div id="container"></div>
+
+<footer>
+    <div class="ipsum">
+        <p>D3.JS protochart.</p>
+    </div>
+</footer>
+
+<script type="application/javascript" src="node_modules/d3/build/d3.min.js"></script>
+
+<script type="application/javascript">
+    "use strict";
+
+    (function(){
+
+        var optional = {}; // for customization
+
+        var config = {
+
+            height: window.innerHeight,
+
+            width: window.innerWidth,
+
+            margin: {
+
+                top: 10,
+
+                left: 10,
+
+                right: 10,
+
+                bottom: 10
+            }
+        };
+
+
+        var settings = Object.assign({}, config, optional);
+
+        var main = d3.select('#container')
+
+            .append('svg')
+
+            .attr('id', settings['id'] || 'chart')
+
+            .attr('width', settings['width'] - settings['margin']['right'])
+
+            .attr('height', settings['height'] - settings['margin']['bottom']);
+
+
+        var group = main
+
+            .append('g')
+
+            .attr('id', 'chart_container')
+
+            .attr('transform', `translate(${settings.margin.left}, ${settings.margin.top})`);
+
+        var opacity, circleX, circleY, radiusX, radiusY;
+
+        circleX = 500, circleY = 400 , radiusX = 400, radiusY = 70;
+
+
+        for(var i=90, j = 20; i > 0; i -= 10, j+=10, circleY -=30, radiusX -=10){
+
+            // calculate descending opacity
+            //
+            opacity = (String)(i / 10 * 0.10 ).slice(0,3);
+
+            group
+
+                .append('ellipse')
+
+                .attr('cx', circleX) // central point `x`
+
+                .attr('cy', circleY) // central point `y`
+
+                .attr('rx', radiusX) // radius point `x`
+
+                .attr('ry', radiusY) // radius point `y`
+
+                .attr('fill', 'blue') // circle fill
+
+                .attr('fill-opacity', opacity) // opacity
+
+                .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
+
+                .attr('stroke-width', 2); // width of "perimeter"
+
+            group
+
+                .append('text')
+
+                .text('foo bar baz')
+
+                .attr('x', j )
+
+                .attr('y', circleY)
+
+                .attr('text-anchor', 'start');
+
+                        // based upon x,y coordinates position text
+                        // Possible values:
+
+                        // `start` text appears from left to right from the given position
+                        //  e.g. #"foo bar"
+                        // `middle` text length is calculated and is equally distributed to left and right from the given position
+                        //        "foo"#"bar"
+                        // `end` text appears from right to left e.g. "foo bar"#
+
+        }
+
+        // var groupEllipseParent = group
+        //
+        //     .append('ellipse')
+        //
+        //     .attr('cx', 350) // central point `x`
+        //
+        //     .attr('cy', 320) // central point `y`
+        //
+        //     .attr('rx', 280) // radius point `x`
+        //
+        //     .attr('ry', 70) // radius point `y`
+        //
+        //     .attr('fill', 'lightgray') // circle fill
+        //
+        //     .attr('fill-opacity', 0.8) // opacity
+        //
+        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
+        //
+        //     .attr('stroke-width', 2); // width of "perimeter"
+        //
+        // var groupEllipse = group
+        //
+        //     .append('ellipse')
+        //
+        //     .attr('cx', 350) // central point `x`
+        //
+        //     .attr('cy', 280) // central point `y`
+        //
+        //     .attr('rx', 240) // radius point `x`
+        //
+        //     .attr('ry', 70) // radius point `y`
+        //
+        //     .attr('fill', 'lightgray') // circle fill
+        //
+        //     .attr('fill-opacity', 0.7) // opacity
+        //
+        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
+        //
+        //     .attr('stroke-width', 2); // width of "perimeter"
+        //
+        // var groupEllipseInner = group
+        //
+        //     .append('ellipse')
+        //
+        //     .attr('cx', 350) // central point `x`
+        //
+        //     .attr('cy', 240) // central point `y`
+        //
+        //     .attr('rx', 200) // radius point `x`
+        //
+        //     .attr('ry', 70) // radius point `y`
+        //
+        //     .attr('fill', 'lightgray') // circle fill
+        //
+        //     .attr('fill-opacity', 0.6) // opacity
+        //
+        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
+        //
+        //     .attr('stroke-width', 2); // width of "perimeter"
+        //
+        // var groupEllipseInner = group
+        //
+        //     .append('ellipse')
+        //
+        //     .attr('cx', 350) // central point `x`
+        //
+        //     .attr('cy', 200) // central point `y`
+        //
+        //     .attr('rx', 160) // radius point `x`
+        //
+        //     .attr('ry', 70) // radius point `y`
+        //
+        //     .attr('fill', 'lightgray') // circle fill
+        //
+        //     .attr('fill-opacity', 0.8) // opacity
+        //
+        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
+        //
+        //     .attr('stroke-width', 2); // width of "perimeter"
+        //
+        //
+        //
+        // var groupCircle = group
+        //
+        //     .append('circle')
+        //
+        //     .attr('cx', 350) // central point `x`
+        //
+        //     .attr('cy', 280) // central point `y`
+        //
+        //     .attr('r', 50) // circle radius
+        //
+        //     .attr('fill', 'black') // circle fill
+        //
+        //     .attr('fill-opacity', 0.8) // opacity
+        //
+        //     .attr('stroke', 'steelblue') // `stroke` or shape (circle) "perimeter"
+        //
+        //     .attr('stroke-width', 2)// width of "perimeter"
+        //
+        //
+
+
+
+
+
+
+    })();
+
+</script>
+</body>
+</html>
