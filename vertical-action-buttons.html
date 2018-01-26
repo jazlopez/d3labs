@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Lab</title>
+
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            font-weight: 400;
+            outline: none;
+        }
+
+        .datum {
+            font-family: "Andale Mono";
+            font-size: 11px;
+            margin: 10px auto;
+            background: aliceblue;
+            text-transform: uppercase;
+            width: 20%;
+            padding: 2%;
+            border:1px solid #add8e6;
+            color: cornflowerblue;
+        }
+
+        /*footer{*/
+            /*position: absolute;*/
+            /*bottom:0px;*/
+            /*width: 100%;*/
+        /*}*/
+        .ipsum {
+            background: #eeeeee;
+            color: dimgray;
+            padding: 2%;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        div {
+            width: 100%;
+        }
+
+        #container {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            padding: 12px;
+            display: block;
+        }
+
+        .sub {
+
+            font-style: italic;
+        }
+
+        .intro {
+            padding: 20px;
+        }
+
+        #chart {
+            fill: steelblue;
+        }
+
+        #svg-container {
+            width: 90%;
+            float: left;
+        }
+
+        #buttons {
+            width: 10%;
+            float:left;
+            background: #eee;
+        }
+
+        #buttons button {
+
+            cursor: pointer;
+            height: 10%;
+            width: 80%;
+            margin-top:20%;
+            border-radius: 4px;
+            border: 1px solid #a9a9a9;
+        }
+
+        #buttons button.active { background: #a9a9a9; }
+
+
+    </style>
+</head>
+
+<body>
+
+
+<cite>
+    <sub>jlopez.mx,Software Developer , D3 Labs</sub>
+</cite>
+
+<hr/>
+
+<div class="intro">
+    <code>
+        <h2>D3 Interacting Buttons</h2>
+    </code>
+</div>
+
+<div id="container"></div>
+
+<footer>
+    <div class="ipsum">
+        <p>D3.JS Interacting Buttons Events</p>
+    </div>
+</footer>
+
+
+<script type="application/javascript" src="node_modules/d3/build/d3.min.js"></script>
+
+<script type="application/javascript">
+    "use strict";
+
+    (function(){
+
+        var optional = {}; // for customization
+
+        var config = {
+
+            height: window.innerHeight,
+
+            width: window.innerWidth,
+
+            margin: {
+
+                top: 10,
+
+                left: 10,
+
+                right: 10,
+
+                bottom: 120
+            }
+        };
+
+
+        var buttons = [
+
+            {
+                label: 'foo',
+                classList: []
+            },
+
+            {
+                label: 'bar',
+                classList: []
+            },
+
+            {
+                label: 'baz',
+                classList: []
+            },
+
+            {
+                label: 'doe',
+                classList: []
+            },
+
+            {
+                label: 'wow',
+                classList: []
+            },
+
+        ];
+
+        var settings = Object.assign({}, config, optional);
+
+        var main = d3.select('#container')
+
+            .append('div')
+
+            .attr('id', 'svg-container')
+
+            .append('svg')
+
+            .attr('id', settings['id'] || 'chart')
+
+            .attr('width', '100%')
+
+            .attr('height', settings['height'] - settings['margin']['bottom']);
+
+        var calcHeight = settings['height'] - settings['margin']['bottom'];
+
+        var group = main
+
+            .append('g')
+
+            .attr('id', 'chart_container')
+
+            .attr('width', '100%');
+
+
+        group
+
+            .append('rect')
+
+            .attr('x', 0)
+
+            .attr('y', 0)
+
+            .attr('fill', 'steelblue')
+
+            .attr('width', '100%')
+
+            .attr('height', '100%');
+
+        var right = d3.select('#container')
+
+            .append('div')
+
+            .attr('id', 'buttons')
+
+            .attr('style', 'height:  ' + calcHeight + 'px');
+
+
+        right.
+
+            selectAll('.button')
+
+            .data(buttons)
+
+            .enter()
+
+            .append('button')
+
+            .classed('button', true )
+
+            .text(function(d){
+
+                return d.label
+            });
+
+
+        right
+
+            .on('click', function(){
+
+                var fill = d3.select('#svg-container rect').attr('fill')  === 'lightblue' ?
+
+                    'lightyellow' : 'lightblue';
+
+                d3.select('rect').attr('fill', fill);
+
+
+                d3.select(d3.event.target).classed('active',
+
+                    !d3.select(d3.event.target).classed('active'));
+            });
+    })();
+</script>
+</body>
+</html>
