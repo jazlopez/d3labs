@@ -24,18 +24,17 @@
             color: cornflowerblue;
         }
 
-        footer{
-            position: absolute;
-            bottom:0px;
-            width: 100%;
-        }
         .ipsum {
             background: #eeeeee;
             color: dimgray;
             padding: 2%;
             border-radius: 4px;
             font-style: italic;
-        }{}
+        }
+
+        #container {
+            width: 900px;
+        }
 
         .sub {
 
@@ -82,9 +81,9 @@
 
         var config = {
 
-            height: window.innerHeight,
+            height: 660,
 
-            width: window.innerWidth,
+            width: 920,
 
             margin: {
 
@@ -107,7 +106,7 @@
 
             .attr('id', settings['id'] || 'chart')
 
-            .attr('width', settings['width'] - settings['margin']['right'])
+            .attr('width', settings['width'])//  - settings['margin']['right'])
 
             .attr('height', settings['height'] - settings['margin']['bottom']);
 
@@ -155,131 +154,48 @@
 
                 .append('text')
 
-                .text('foo bar baz')
+                .text('scale =' + j )
 
-                .attr('x', j )
+                .attr('x', (j - 15) )
 
                 .attr('y', circleY)
 
-                .attr('text-anchor', 'start');
+                .attr('fill', 'white')
 
-                        // based upon x,y coordinates position text
-                        // Possible values:
+                .attr('text-anchor', 'start')
 
-                        // `start` text appears from left to right from the given position
-                        //  e.g. #"foo bar"
-                        // `middle` text length is calculated and is equally distributed to left and right from the given position
-                        //        "foo"#"bar"
-                        // `end` text appears from right to left e.g. "foo bar"#
+                .attr('style', 'text-transform: uppercase');
 
         }
 
-        // var groupEllipseParent = group
-        //
-        //     .append('ellipse')
-        //
-        //     .attr('cx', 350) // central point `x`
-        //
-        //     .attr('cy', 320) // central point `y`
-        //
-        //     .attr('rx', 280) // radius point `x`
-        //
-        //     .attr('ry', 70) // radius point `y`
-        //
-        //     .attr('fill', 'lightgray') // circle fill
-        //
-        //     .attr('fill-opacity', 0.8) // opacity
-        //
-        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
-        //
-        //     .attr('stroke-width', 2); // width of "perimeter"
-        //
-        // var groupEllipse = group
-        //
-        //     .append('ellipse')
-        //
-        //     .attr('cx', 350) // central point `x`
-        //
-        //     .attr('cy', 280) // central point `y`
-        //
-        //     .attr('rx', 240) // radius point `x`
-        //
-        //     .attr('ry', 70) // radius point `y`
-        //
-        //     .attr('fill', 'lightgray') // circle fill
-        //
-        //     .attr('fill-opacity', 0.7) // opacity
-        //
-        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
-        //
-        //     .attr('stroke-width', 2); // width of "perimeter"
-        //
-        // var groupEllipseInner = group
-        //
-        //     .append('ellipse')
-        //
-        //     .attr('cx', 350) // central point `x`
-        //
-        //     .attr('cy', 240) // central point `y`
-        //
-        //     .attr('rx', 200) // radius point `x`
-        //
-        //     .attr('ry', 70) // radius point `y`
-        //
-        //     .attr('fill', 'lightgray') // circle fill
-        //
-        //     .attr('fill-opacity', 0.6) // opacity
-        //
-        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
-        //
-        //     .attr('stroke-width', 2); // width of "perimeter"
-        //
-        // var groupEllipseInner = group
-        //
-        //     .append('ellipse')
-        //
-        //     .attr('cx', 350) // central point `x`
-        //
-        //     .attr('cy', 200) // central point `y`
-        //
-        //     .attr('rx', 160) // radius point `x`
-        //
-        //     .attr('ry', 70) // radius point `y`
-        //
-        //     .attr('fill', 'lightgray') // circle fill
-        //
-        //     .attr('fill-opacity', 0.8) // opacity
-        //
-        //     .attr('stroke', 'white') // `stroke` or shape (circle) "perimeter"
-        //
-        //     .attr('stroke-width', 2); // width of "perimeter"
-        //
-        //
-        //
-        // var groupCircle = group
-        //
-        //     .append('circle')
-        //
-        //     .attr('cx', 350) // central point `x`
-        //
-        //     .attr('cy', 280) // central point `y`
-        //
-        //     .attr('r', 50) // circle radius
-        //
-        //     .attr('fill', 'black') // circle fill
-        //
-        //     .attr('fill-opacity', 0.8) // opacity
-        //
-        //     .attr('stroke', 'steelblue') // `stroke` or shape (circle) "perimeter"
-        //
-        //     .attr('stroke-width', 2)// width of "perimeter"
-        //
-        //
+        /**
+         * Example of `insert`
+         *
+         * opposite to `append` method that creates an element after selector
+         * `insert` method allow to create an element before the selector
+         *
+         * e.g
+         *
+         * insert a rectangle before ellipse (first matched)
+         */
+        group
+
+            .insert('rect', 'ellipse')
+
+            .attr('width', settings['width'] - settings['margin']['right'])
+
+            .attr('height', (settings['height'] - settings['margin']['bottom']) * 0.8)
 
 
+            .attr('rx', 20)
 
+            .attr('ry', 50)
 
+            .attr('stroke', '20')
 
+            .attr('stroke-color', 'steelblue')
+
+            .attr('stroke-dash', '4');
 
     })();
 
