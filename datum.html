@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Lab</title>
+
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            font-weight: 400;
+            outline: none;
+        }
+
+
+        .datum {
+            font-family: "Andale Mono";
+            font-size: 11px;
+            margin: 10px auto;
+            background: aliceblue;
+            text-transform: uppercase;
+            width: 20%;
+            padding: 2%;
+            border:1px solid #add8e6;
+            color: cornflowerblue;
+        }
+
+        footer{
+            position: absolute;
+            bottom:0;
+            width: 100%;
+        }
+
+
+        .ipsum {
+            background: #eeeeee;
+            color: dimgray;
+            padding: 2%;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        #container {
+            width: 100%;
+
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+
+
+<cite>
+    <sub>jlopez.mx,Software Developer , D3 Labs</sub>
+</cite>
+
+<hr/>
+
+<div class="intro">
+    <code>
+        <h2>D3 Datum </h2>
+    </code>
+</div>
+
+<div id="container"></div>
+
+<footer>
+    <div class="ipsum">
+        <p>D3 Datum</p>
+    </div>
+</footer>
+
+
+<script type="application/javascript" src="node_modules/d3/build/d3.min.js"></script>
+
+<script type="application/javascript">
+    "use strict";
+
+    (function() {
+
+        var sine = d3.range(0, 10).map(function(k){
+
+            return [0.5 * k * Math.PI, Math.sin(0.5 * k * Math.PI)];
+        });
+
+        console.info(sine);
+
+
+        var svg = d3.select('#container')
+
+            .append('svg')
+
+            .attr('width', 900)
+
+            .attr('height', 600)
+
+            .append('g');
+
+
+        var x = d3. scaleLinear()
+
+            .range([ 0, 900])
+
+            .domain( d3. extent( sine, function(d) {
+
+                return d[0];
+
+            }));
+
+        var y = d3. scaleLinear()
+
+            .range([ 300, 0 ])
+
+            .domain([-1, 1]);
+
+        var line = d3.line()
+
+            .x(function(d) {
+
+                return x(d[0]);
+
+            })
+            .y(function(d){
+
+                return y(d[1]);
+            });
+
+
+            var area = d3. area()
+
+            .x(function(d){
+
+                return x( d[0])
+
+            })
+
+            .y0( 300)
+
+            .y1( function(d) {
+
+                return y( d[1])
+            })
+                .curve( d3. curveBasis);
+
+        //
+        svg.append('path') .datum(sine)
+
+            .attr('d', area)
+
+            .attr('fill', 'steelblue') .attr('fill-opacity', 0.4);
+
+
+        svg.append('g').append('path') .datum(sine)
+
+            // .attr('d', line.curve(d3.curveBasis))
+
+            .attr('d', line.curve(d3.curveNatural))
+
+            .attr('fill', 'steelblue') .attr('fill-opacity', 0.4);
+
+    })();
+
+    </script>
+
+</body>
+</html>
