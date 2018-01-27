@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Lab</title>
+
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            font-weight: 400;
+            outline: none;
+        }
+
+
+        .datum {
+            font-family: "Andale Mono";
+            font-size: 11px;
+            margin: 10px auto;
+            background: aliceblue;
+            text-transform: uppercase;
+            width: 20%;
+            padding: 2%;
+            border:1px solid #add8e6;
+            color: cornflowerblue;
+        }
+
+        footer{
+            position: absolute;
+            bottom:0;
+            width: 100%;
+        }
+
+
+        .ipsum {
+            background: #eeeeee;
+            color: dimgray;
+            padding: 2%;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        #container {
+            width: 100%;
+            height: 400;
+            margin: 80px;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+
+
+<cite>
+    <sub>jlopez.mx,Software Developer , D3 Labs</sub>
+</cite>
+
+<hr/>
+
+<div class="intro">
+    <code>
+        <h2>D3 Basic Scaling Transformations</h2>
+    </code>
+</div>
+
+<div id="container"></div>
+
+<footer>
+    <div class="ipsum">
+        <p>D3 Basic Scaling Transformations</p>
+    </div>
+</footer>
+
+
+<script type="application/javascript" src="node_modules/d3/build/d3.min.js"></script>
+
+<script type="application/javascript">
+    "use strict";
+
+    (function(){
+
+
+        var svg = d3.select('#container')
+
+            .append('svg')
+
+            .attr('width', (window.innerWidth - 40))
+
+            .attr('height', 600);
+
+
+
+        svg
+
+            .append('rect')
+
+            .attr('width', 600)
+
+            .attr('height', 10)
+
+            .attr('x', 0)
+
+            .attr('y', 80)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'silver')
+
+            .attr('stroke-width', 1)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(5, 40) scale(1.6) skewX(1) skewY(1)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', 600)
+
+            .attr('height', 10)
+
+            .attr('x', 0)
+
+            .attr('y', 85)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'silver')
+
+            .attr('stroke-width', 1)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(5, 40) scale(1.6) skewX(1) skewY(1)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', 600)
+
+            .attr('height', 10)
+
+            .attr('x', 0)
+
+            .attr('y', 120)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'silver')
+
+            .attr('stroke-width', 1)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(5, 40) scale(1.6) skewX(1) skewY(1)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', 600)
+
+            .attr('height', 10)
+
+            .attr('x', 0)
+
+            .attr('y', 125)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'silver')
+
+            .attr('stroke-width', 1)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(5, 40) scale(1.6) skewX(1) skewY(1)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', 600)
+
+            .attr('height', 10)
+
+            .attr('x', 0)
+
+            .attr('y', 160)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'silver')
+
+            .attr('stroke-width', 1)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(5, 40) scale(1.6) skewX(1) skewY(1)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', 600)
+
+            .attr('height', 10)
+
+            .attr('x', 0)
+
+            .attr('y', 165)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'silver')
+
+            .attr('stroke-width', 1)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(5, 40) scale(1.6) skewX(1) skewY(1)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', (window.innerWidth / 6))
+
+            .attr('height', (400 / 4))
+
+            .attr('x', 20)
+
+            .attr('y', 80)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'darkgrey')
+
+            .attr('stroke-width', 3)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(100, -20) scale(0.9) skewX(0) skewY(45)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', (window.innerWidth / 6))
+
+            .attr('height', (400 / 4))
+
+            .attr('x', 20)
+
+            .attr('y', 80)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'darkgrey')
+
+            .attr('stroke-width', 3)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(200, -20) scale(0.9) skewX(0) skewY(45)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', (window.innerWidth / 6))
+
+            .attr('height', (400 / 4))
+
+            .attr('x', 20)
+
+            .attr('y', 80)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'darkgrey')
+
+            .attr('stroke-width', 3)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(300, -10) scale(0.9) skewX(0) skewY(45)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', (window.innerWidth / 6))
+
+            .attr('height', (400 / 4))
+
+            .attr('x', 20)
+
+            .attr('y', 80)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'darkgrey')
+
+            .attr('stroke-width', 3)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(400, -10) scale(0.9) skewX(0) skewY(45)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', (window.innerWidth / 6))
+
+            .attr('height', (400 / 4))
+
+            .attr('x', 20)
+
+            .attr('y', 80)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'darkgrey')
+
+            .attr('stroke-width', 3)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(500, -10) scale(0.9) skewX(0) skewY(45)');
+
+        svg
+
+            .append('rect')
+
+            .attr('width', (window.innerWidth / 6))
+
+            .attr('height', (400 / 4))
+
+            .attr('x', 20)
+
+            .attr('y', 80)
+
+            .attr('rx', 20)  // rounded borders
+
+            .attr('fill', 'darkgrey')
+
+            .attr('stroke-width', 3)
+
+            .attr('stroke', 'white')
+
+            .attr('transform', 'translate(600, -10) scale(0.9) skewX(0) skewY(45)');
+
+
+
+    })();
+</script>
+</body>
+</html>
