@@ -126,6 +126,16 @@
 
     (function () {
 
+        var myClick = function(){
+
+            alert('foo');
+        };
+
+        var otherClick = function(){
+
+            alert('baz');
+        }
+
         /**
          * Tree menu configuration
          **/
@@ -137,10 +147,27 @@
                 children: [
 
                     {
-                        name: 'bar'
+                        name: 'bar',
+
+                        cb: myClick,
+
+                        classList: ['active', 'material'],
+
+                        children: [
+
+                            {
+                                name: 'john'
+                            },
+
+                            {
+                                name: 'doe'
+                            }
+                        ]
                     },
                     {
-                        name: 'baz'
+                        name: 'baz',
+
+                        cb: otherClick
                     }
                 ]
             },
@@ -153,7 +180,12 @@
                         name: 'foo'
                     }
                 ]
+            },
+
+            {
+                name: 'baz'
             }
+
         ];
 
         /**
@@ -184,7 +216,19 @@
 
                 node.children.map(function (children) {
 
-                    node.d.append('div').text(children.name).classed('red', true);
+                    var myClasses = [];
+
+                    children.hasOwnProperty('classList') && (myClasses = children.classList);
+
+                    node.d.append('div')
+
+                        .text(children.name)
+
+                        .classed('red', true)
+
+                        .classed(myClasses.join(' '), true)
+
+                        .on('click', children.cb);
                 });
             });
         };
