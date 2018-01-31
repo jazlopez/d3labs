@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Lab</title>
+
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .datum {
+            font-family: "Andale Mono";
+            font-size: 11px;
+            margin: 10px auto;
+            background: aliceblue;
+            text-transform: uppercase;
+            width: 20%;
+            padding: 2%;
+            border: 1px solid #add8e6;
+            color: cornflowerblue;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+
+        .ipsum {
+            background: #eeeeee;
+            color: dimgray;
+            padding: 2%;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .sub {
+
+            font-style: italic;
+        }
+
+        .intro {
+            padding: 20px;
+        }
+
+        #content {
+
+            width: 100%;
+            display: block;
+        }
+
+        #content > div {
+
+            float: left;
+        }
+
+        #code {
+
+            width: 10%;
+            float: left;
+            font-family: "Andale Mono";
+            font-size: 11px;
+            display: block;
+            border: 1px solid #eeeeee;
+            background: #eeeeee;
+
+        }
+
+        #container {
+            width: 80%;
+            height: 400px;
+            margin: 0 auto;
+            float: left;
+
+        }
+
+        .buttons > div {
+            position: relative;
+            width: 150px;
+
+        }
+
+        .red {
+            color: red !important;
+            position: absolute;
+            left: 25px;
+            width: 150px;
+        }
+
+    </style>
+</head>
+<body>
+
+<cite>
+    <sub>jlopez.mx,Software Developer , D3 Labs</sub>
+</cite>
+
+<hr/>
+
+<div class="intro">
+    <code>
+        <h2>D3 Tree menu </h2>
+    </code>
+</div>
+
+
+<div class="content">
+
+
+    <div id="container"></div>
+
+</div>
+<footer>
+    <div class="ipsum">
+        <p>D3 Tree menu </p>
+    </div>
+</footer>
+
+<script type="application/javascript" src="node_modules/d3/build/d3.min.js"></script>
+
+<script type="application/javascript">
+
+    (function () {
+
+        /**
+         * Tree menu configuration
+         **/
+        var config = [
+
+            {
+                name: 'foo',
+
+                children: [
+
+                    {
+                        name: 'bar'
+                    },
+                    {
+                        name: 'baz'
+                    }
+                ]
+            },
+            {
+                name: 'bar',
+
+                children: [
+
+                    {
+                        name: 'foo'
+                    }
+                ]
+            }
+        ];
+
+        /**
+         * Tree menu container
+         **/
+        var container =
+
+            d3.select('#container').append('div').attr('id', 'button-container');
+
+        /**
+         * Contextual menu (branch level)
+         *
+         * @param d
+         */
+        var contextualMenu = function (d) {
+
+            d.nodes().map(function (node) {
+
+                var parent = d3.select(node);
+
+                return Object.assign({}, {d: parent, children: parent.datum().children});
+
+            }).filter(function (node) {
+
+                return node.children;
+
+            }).map(function (node) {
+
+                node.children.map(function (children) {
+
+                    node.d.append('div').text(children.name).classed('red', true);
+                });
+            });
+        };
+
+        /**
+         * Top level tree menu
+         */
+        container
+
+            .selectAll('.buttons')
+
+            .data(config)
+
+            .enter()
+
+            .append('div')
+
+            .text(function (d) {
+
+                return d.name;
+            })
+
+            .attr('id', function (d) {
+
+                return d.name;
+            })
+
+            .call(contextualMenu) // append contextual menu upon given children information
+
+            .classed('buttons', true);
+
+    })();
+
+</script>
