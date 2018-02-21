@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Lab</title>
+
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .datum {
+            font-family: "Andale Mono";
+            font-size: 11px;
+            margin: 10px auto;
+            background: aliceblue;
+            text-transform: uppercase;
+            width: 20%;
+            padding: 2%;
+            border:1px solid #add8e6;
+            color: cornflowerblue;
+        }
+
+        footer{
+            position: absolute;
+            bottom:0px;
+            width: 100%;
+        }
+        .ipsum {
+            background: #eeeeee;
+            color: dimgray;
+            padding: 2%;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .sub {
+
+            font-style: italic;
+        }
+
+        .intro {
+            padding: 20px;
+        }
+
+        #content {
+
+            width: 100%;
+            display: block;
+        }
+
+        #content > div {
+
+            float:left;
+        }
+
+        #code {
+
+            width: 10%;
+            float:left;
+            font-family: "Andale Mono";
+            font-size: 11px;
+            display: block;
+            border:1px solid #eeeeee;
+            background: #eeeeee;
+
+        }
+
+        #container {
+            width: 80%;
+            height: 400px;
+            margin: 0 auto;
+            float:left;6
+
+        }
+
+    </style>
+</head>
+<body>
+
+<cite>
+    <sub>jlopez.mx,Software Developer , D3 Labs</sub>
+</cite>
+
+<hr/>
+
+<div class="intro">
+    <code>
+        <h2>D3 Color Scale Bands</h2>
+    </code>
+</div>
+
+
+<div class="content">
+<div id="code">
+    <code>
+        Here goes code if apply
+    </code>
+</div>
+
+<div id="container"></div>
+
+</div>
+<footer>
+    <div class="ipsum">
+        <p>D3 Color Scale Bands</p>
+    </div>
+</footer>
+
+<script type="application/javascript" src="node_modules/d3/build/d3.min.js"></script>
+
+<script type="application/javascript">
+
+    "use strict";
+
+    (function() {
+
+        var width = Math.ceil(window.innerWidth / 2),
+
+            height = Math.ceil(window.innerHeight / 2),
+
+            margin = {
+
+                top: 20,
+
+                left: 20
+            };
+
+
+        var main = d3.select('#container')
+
+            .append('svg')
+
+            .attr('id', 'basic-axis-svg')
+
+            .attr('width', width)
+
+            .attr('height', height)
+
+            .append('g')
+
+            .attr('transform', 'translate(' + margin.top + ', '  + margin.left + ')');
+
+        // define data range (0..30)
+
+        var data = d3.range(10);
+
+        // define color scale
+
+        var colors = d3.scaleOrdinal(d3.schemeCategory20);
+
+        // define scale points (vertical)
+        var points = d3.scalePoint()
+
+            .domain(data)
+
+            .range([0, height])
+
+            .padding(0.1); // separation between vertical points
+
+        // define bands (horizontal)
+        var bands = d3.scaleBand()
+
+            .domain(data)
+
+            .range([0, width])
+
+            .padding(0.1); // separation between horizontal points
+
+        main
+
+            .selectAll('path')
+
+            .data(data)
+
+            .enter()
+
+            .append('path')
+
+            .attr('d', d3.symbol().type(d3.symbolCircle).size(120))
+
+            .attr('transform', function(d, i) {
+
+                return 'translate(' + width / 2 + ',' + points(d) + ')';
+            })
+
+            .style('fill', function(d) {
+
+                return colors(d);
+            });
+
+        main
+
+            .selectAll('rect')
+
+            .data(data)
+
+            .enter()
+
+            .append('rect')
+
+            .attr('x', function(d){
+
+                return  bands(d);
+            })
+
+            .attr('y', height)
+
+            .attr('width', bands.bandwidth)
+
+            .attr('height', 10)
+
+            .style('fill', function(d) { return colors(d)});
+
+
+
+
+        console.info(colors());
+
+
+
+
+
+    })();
+
+</script>
+</body>
+</html>
