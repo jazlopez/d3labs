@@ -8,7 +8,6 @@
         * {
             margin: 0 auto;
             padding: 0;
-            text-align: center;
             font-weight: 400;
             outline: none;
         }
@@ -29,6 +28,7 @@
         footer{
             position: absolute;
             bottom:0;
+            text-align: center;
             width: 100%;
         }
 
@@ -46,7 +46,25 @@
 
         }
 
+    #container .code {
+        background: #fffafa;
+        text-align: left;
+        border: 1px solid #fadeb3;
+        font-size: 8px;
+        float:left;
+        padding: 12px;
+        max-height: 600px;
+        overflow: auto;
 
+    }
+
+        .center  {
+            text-align: center;
+        }
+
+        .padded {
+            margin: 10px 0;
+        }
 
     </style>
 </head>
@@ -54,21 +72,118 @@
 <body>
 
 
-<cite>
+<div class="center padded">
+<cite >
     <sub>jlopez.mx,Software Developer , D3 Labs</sub>
 </cite>
+</div>
 
 <hr/>
 
-<div class="intro">
+<div class="intro center padded">
     <code>
         <h2>D3 Datum </h2>
     </code>
 </div>
 
-<div id="container"></div>
+<div id="container">
+<div class="code">
+    <code>
 
-<footer>
+        (function() {<br/></br/>
+
+        var sine = d3.range(0, 10).map(function(k){<br/>
+
+        return [0.5 * k * Math.PI, Math.sin(0.5 * k * Math.PI)];<br/>
+        });<br/>
+
+        <br/>
+        var svg = d3.select('#container') <br/>
+
+        .append('svg')</br>
+
+        .attr('width', 900) </br>
+
+        .attr('height', 600) </br>
+
+            .append('g'); </br>
+
+        <br/>
+
+        var x = d3. scaleLinear() </br>
+
+        .range([ 0, 900]) </br>
+
+        .domain( d3. extent( sine, function(d) { </br>
+
+        return d[0]; </br>
+
+        }));</br>
+        <br/>
+        var y = d3. scaleLinear()</br>
+
+        .range([ 300, 0 ])</br>
+
+        .domain([-1, 1]);</br>
+
+        <br/>
+
+        var line = d3.line()</br>
+
+        .x(function(d) {</br>
+
+        return x(d[0]);</br>
+
+        })</br>
+        .y(function(d){</br>
+
+        return y(d[1]);</br>
+        });</br>
+        <br/>
+        var area = d3. area()</br>
+
+        .x(function(d){</br>
+
+        return x( d[0])</br>
+
+        })</br>
+
+        .y0( 300)</br>
+
+        .y1( function(d) { </br>
+
+        return y( d[1]) </br>
+        }) </br>
+        .curve( d3. curveBasis);</br>
+        <br/>
+        // display colored area </br>
+        svg.append('path') .datum(sine)</br>
+
+        .attr('d', area)</br>
+
+        .attr('fill', 'steelblue') .attr('fill-opacity', 0.4);</br>
+
+        <br/>
+
+        // display line perimeter</br>
+
+        svg.append('g').append('path') .datum(sine)</br>
+
+        .attr('d', line.curve(d3.curveBasis))</br>
+
+        .attr('fill', 'none')</br>
+
+        .attr('stroke', 'steelblue')</br>
+
+        .attr('stroke-width', 2);</br>
+        <br/>
+
+        })();</br>
+    </code>
+</div>
+</div>
+
+<footer class="center">
     <div class="ipsum">
         <p>D3 Datum</p>
     </div>
@@ -96,7 +211,9 @@
 
             .attr('width', 900)
 
-            .attr('height', 600)
+            .attr('height', 300)
+
+            .attr('transform', 'translate(60,' + (window.innerHeight -  600 ) + ') scale(1.1) translate(0, 90)')
 
             .append('g');
 
@@ -156,11 +273,68 @@
 
         svg.append('g').append('path') .datum(sine)
 
-            // .attr('d', line.curve(d3.curveBasis))
+            .attr('d', line.curve(d3.curveBasis))
 
-            .attr('d', line.curve(d3.curveNatural))
+            .attr('fill', 'none')
 
-            .attr('fill', 'steelblue') .attr('fill-opacity', 0.4);
+            .attr('stroke', 'steelblue')
+
+            .attr('stroke-width', 2)
+
+            .attr('stroke-opacity', '0.6');
+
+        svg.append('path') .datum(sine)
+
+            .attr('d', area)
+
+            .attr('fill', 'steelblue') .attr('fill-opacity', 0.4)
+
+            .attr('transform', 'translate(0,20)');
+
+        svg.append('path') .datum(sine)
+
+            .attr('d', area)
+
+            .attr('fill', 'steelblue') .attr('fill-opacity', 0.4)
+
+            .attr('transform', 'translate(0,60)')
+
+
+
+
+
+
+
+
+
+        svg.append('g').append('path') .datum(sine)
+
+            .attr('d', line.curve(d3.curveBasis))
+
+            .attr('fill', 'none')
+
+            .attr('stroke', 'white')
+
+            .attr('stroke-width', 2)
+
+            .attr('stroke-opacity', '0.5')
+
+            .attr('transform', 'translate(0,40)')
+
+        svg.append('g').append('path') .datum(sine)
+
+            .attr('d', line.curve(d3.curveBasis))
+
+            .attr('fill', 'none')
+
+            .attr('stroke', 'white')
+
+            .attr('stroke-width', 2)
+
+            .attr('stroke-opacity', '0.5')
+
+            .attr('transform', 'translate(0,80)')
+
 
     })();
 
