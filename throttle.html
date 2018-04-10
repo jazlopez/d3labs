@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>API Page Visiblity - landing/leaving page example</title>
+
+    <style>
+        div {
+            font-family: monospace;
+            text-indent: 20px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h4>API Page Visiblity - landing/leaving page example, Jaziel Lopez <a href="mailto:jlopez@jlopez.mx">jlopez@jlopez.mx</a></h4>
+    <hr>
+
+    <p>Try opening a new tab or visiting an opened one; return back to see the activity log...</p>
+</div>
+
+<script type="text/javascript" src="node_modules/idle-js/dist/Idle.min.js"></script>
+<script type="text/javascript">
+
+    (function(){
+
+        var activeTimer = new Date(), inactiveTimer = new Date(),
+
+            displayInactivity = function() {
+
+                var el = document.createElement('div'),
+
+                    now = new Date(),
+
+                    diffTimer = now.getTime() - inactiveTimer.getTime();
+
+                el.innerText = 'Welcome back! you were inactive for about ' + parseInt(diffTimer / 1000).toString() + ' seconds';
+
+                document.body.appendChild(el);
+
+                activeTimer = new Date();
+
+            },
+
+            resetTimer = function(el) {
+
+                var el = document.createElement('div'),
+
+                    now = new Date(),
+
+                    diffTimer = now.getTime() - activeTimer.getTime();
+
+                el.innerText = 'Sorry see you leave! you were active for about ' + parseInt(diffTimer / 1000).toString() + ' seconds';
+
+                document.body.appendChild(el);
+
+                inactiveTimer = new Date();
+            };
+
+
+        document.addEventListener('visibilitychange', function () {
+
+            document.visibilityState === 'visible' && displayInactivity();
+
+            document.visibilityState === 'hidden' && resetTimer();
+        })
+
+    })();
+   
+</script>
+</body>
+</html>
