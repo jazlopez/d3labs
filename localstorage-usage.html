@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Storage Usage</title>
+    <style>
+
+        #container {
+
+            font-family: monospace;
+            width: 50%;
+            margin: 0 auto;
+            background: #ddd;
+            min-height: 400px;
+        }
+
+        #container p {
+            text-align: center;
+            border-bottom: 1px dashed #333;
+        }
+    </style>
+</head>
+<body>
+<h3>LOCAL STORAGE WEB API - AVAILABLE SPACE STORAGE CALCULATOR</h3>
+<hr/>
+<h4>Jaziel Lopez, Software Developer</h4>
+<a href="https://jlopez.mx">jlopez.mxr</a>
+</h4>
+<div id = "container">
+    <p><b>LOG OUTPUT</b></p>
+
+</div>
+
+<script type="application/javascript" src="mime-encode-base64.js"></script>
+<script type="application/javascript">
+
+    var intervalId, data, consumed, available, el;
+
+    var localStorageSpace = function() {
+
+        data = '';
+
+        el = document.createElement('div');
+
+        try {
+
+            window.localStorage.setItem('foo_' + new Date().toISOString(), veryLargeData);
+
+            for (var key in window.localStorage) {
+
+                if (window.localStorage.hasOwnProperty(key)) {
+                    data += window.localStorage[key];
+                    console.log(key + " = " + ((window.localStorage[key].length * 16) / (8 * 1024)).toFixed(2) + ' KB');
+                }
+
+                consumed = ((data.length * 16) / (8 * 1024)).toFixed(2);
+                available = 5120 - ((data.length * 16) / (8 * 1024)).toFixed(2);
+
+                el.innerText = data ? '\n' + 'Total space used: ' + consumed.toString() + ' KB' : 'Empty (0 KB)';
+                el.innerText += data ? 'Approx. space remaining: ' + available.toString() + ' MB' : '5 MB';
+
+                document.body.appendChild(el);
+
+            }
+
+        } catch (e) {
+
+            el.innerText = e.message;
+
+            clearInterval(intervalId)
+
+        } finally {
+
+            document.querySelector('#container').appendChild(el);
+
+        }
+    }
+
+
+        intervalId = setInterval(localStorageSpace, 2999);
+
+
+
+</script>
+</body>
+</html>
