@@ -1,0 +1,14 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping ext="" type="JSHint" />
+      <mapping pattern="test" type="PLAIN_TEXT" />
+      <mapping pattern=".swagger-codegen-ignore" type="PLAIN_TEXT" />
+      <mapping pattern=".gitkeep" type="PLAIN_TEXT" />
+      <mapping ext="80280613" type="PLAIN_TEXT" />
+      <mapping ext="3285912109" type="PLAIN_TEXT" />
+      <mapping ext="map" type="PLAIN_TEXT" />
+      <mapping ext="tsv" type="PLAIN_TEXT" />
+    </extensionMap>
+  </component>
+</application>
