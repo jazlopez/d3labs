@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch Javascript API</title>
+
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            font-weight: 400;
+        }
+
+        #response {
+            font-family: monospace;
+            font-size: 11px;
+            margin: 10px auto;
+            background: aliceblue;
+            width: 50%;
+            border: 1px solid #add8e6;
+            color: cornflowerblue;
+            max-height: 600px;
+            line-height: 1.4;
+            overflow: scroll;
+        }
+
+        #code {
+            font-family: "Andale Mono";
+            font-size: 11px;
+            margin: 10px auto;
+            background: #ddd;
+            border: 1px solid #add8e6;
+            line-height: 2;
+            width: 50%;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+
+        #center {
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+<body>
+<div id="center">
+<cite>
+    <sub>jlopez.mx,Software Developer , D3 Labs</sub>
+</cite>
+<hr/>
+
+<div class="intro">
+    <code>
+        <h2>EXAMPLE USING FETCH JAVASCRIPT TO LOAD RESOURCES</h2>
+    </code>
+</div>
+</div>
+
+<div id="code">
+    <code>
+
+        <p>&nbsp;&nbsp;(function(){</p>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;fetch('world-110m.json').then(function(payload){</p>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return payload.json();</p>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;}).then(function(response){</p>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//JSON.stringy(response) (payload});</p>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;})();</p>
+    </code>
+</div>
+
+<div id="response"></div>
+
+<script type="application/javascript">
+
+    (function(){
+
+        fetch('world-110m.json').then(function(payload){
+
+           return payload.json();
+
+        }).then(function(response){
+
+            document.querySelector('#response').innerText = JSON.stringify(response);
+        });
+
+    })();
+</script>
+</body>
+</html>
