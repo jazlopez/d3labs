@@ -5,6 +5,7 @@
   "description": "D3js playground examples",
   "main": "index.js",
   "scripts": {
+    "analysis": "./node_modules/jshint/bin/jshint --reporter=node_modules/jshint-stylish . --exclude=./node_modules/; exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +21,7 @@
     "d3": "4.13.0"
   },
   "devDependencies": {
-    "jshint": "2.9.5"
+    "jshint": "2.9.5",
+    "jshint-stylish": "^2.2.1"
   }
 }
