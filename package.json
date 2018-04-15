@@ -1,5 +1,6 @@
 {
   "name": "d3labs",
+  "author": "Jaziel Lopez juan.jaziel@gmail.com>",
   "version": "1.0.0",
   "description": "D3js playground examples",
   "main": "index.js",
@@ -10,13 +11,15 @@
     "type": "git",
     "url": "git+https://github.com/jazlopez/d3labs.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jazlopez/d3labs/issues"
   },
   "homepage": "https://github.com/jazlopez/d3labs#readme",
   "dependencies": {
-    "d3": "^4.13.0"
+    "d3": "4.13.0"
+  },
+  "devDependencies": {
+    "jshint": "2.9.5"
   }
 }
