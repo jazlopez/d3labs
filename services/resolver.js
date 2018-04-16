@@ -1,49 +1,37 @@
-"use strict";
+const resolver = function(){
 
-/**
- * Jaziel Lopez <juan.jaziel@gmail.com>
- * https://jlopez.mx
- * Destructuring function parameters
+    /**
+     * Dummy function
+     * @returns {boolean}
+     */
+    const resolveQuota = function resolveQuota(){
 
- * @type {number}
- */
+        console.log('resolve Quota');
 
-let el = 1, foo =2, woo = ['name', 'age', 'country'];
+        return true;
+    };
 
+    /**
+     * Resolve fn by name
+     * @param ent
+     */
+    const fnByName = function (ent) {
 
-let protor = function({el = 'defaultEl', foo =  'defaultFoo', woo= []} = {}) {
+        switch(ent){
 
-    const [name, age, other] = woo;
+            case 'Quota': return resolveQuota();
 
-    const greet = function (){ console.log('hello world'); };
-
-    return {
-
-
-        doGreet: function(){
-
-            // let iterateFn = new Function('greet');
-            // iterateFn();
-
-            let n = Function;
-
-            n.bind(this, 'greet');
-
-            n();
-
-            // console.log(Function.apply(this, 'greet')());
-            //
-            // (function(fn){
-            //
-            //     console.log(Function.apply(fn));
-            //
-            // })('greet()');
+            default: throw Error('Unknow FN');
         }
     };
 
+    return  Object.create({}, {
+
+        all: {
+
+            value: fnByName, enumerable: true
+        }
+    });
 };
 
-let test = new protor();
-
-test.doGreet();
-
+module.exports = resolver;
